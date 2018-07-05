@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "8087:80"
+        volumes:
+            - ".:/www"
+            - .docker/config/nginx.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - develop
+
+    php:
+        image: bitnami/php-fpm
+        volumes:
+            - ".:/www"
+        networks:
+            - develop
+
+networks:
+    develop:
+        driver: bridge
